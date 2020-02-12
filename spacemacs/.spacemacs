@@ -197,8 +197,8 @@ values."
    dotspacemacs-colorize-cursor-according-to-state t
 
    ;; Default font or prioritized list of fonts.
-   dotspacemacs-default-font '("Source Code Pro"
-                               :size 25 
+   dotspacemacs-default-font '("Hack"
+                               :size 18
                                :weight normal
                                :width normal)
 
@@ -350,7 +350,7 @@ values."
    ;;   :size-limit-kb 1000)
    ;; When used in a plist, `visual' takes precedence over `relative'.
    ;; (default nil)
-   dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers t
 
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
