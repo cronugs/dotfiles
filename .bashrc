@@ -5,11 +5,7 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-export MONGO_URI="mongodb+srv://root:N4gu4lp4ss@myfirstcluster-y9fbv.mongodb.net/myTestDB?retryWrites=true&w=majority"
-export MONGO_NATMA_URI="mongodb+srv://root:N4gu4lp4ss@myfirstcluster-y9fbv.mongodb.net/task_manager?retryWrites=true&w=majority"
-export MONGO_GPMS_URI="mongodb+srv://root:N4gu4lp4ss@myfirstcluster-y9fbv.mongodb.net/goannapms?retryWrites=true&w=majority"
-export MONGO_MYBLOG_URI="mongodb+srv://root:N4gu4lp4ss@myfirstcluster-y9fbv.mongodb.net/myBlog?retryWrites=true&w=majority"
-export NOFOLIO_SECRET_KEY="1f67b3678156205853ddc3ef59abafed"
+export DEV=1
 
 alias ls='ls --color=auto'
 alias run='python manage.py runserver 127.0.0.1:5000'
@@ -49,7 +45,7 @@ function parse_git_branch {
 
 function set_bash_prompt () {
     set_virtualenv
-    PS1="${PYTHON_VIRTUALENV}${debian_chroot:+($debian_chroot)}${WHITE}\u@\h $GREEN\w$MAGENTA\$(parse_git_branch) $BLUE\$$CLEAR "
+    PS1="${PYTHON_VIRTUALENV}${debian_chroot:+($debian_chroot)}${WHITE}${USER:0:1}@\h $BLUE\w$MAGENTA\$(parse_git_branch) $BLUE\$$CLEAR "
 }
 
 PROMPT_COMMAND=set_bash_prompt
