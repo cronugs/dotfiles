@@ -1,14 +1,15 @@
-#
 # ~/.bashrc
-#
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-export DEV=1
+# Enable vi mode
+set -o vi
 
+# Aliases
 alias ls='ls --color=auto'
-alias run='python manage.py runserver 127.0.0.1:5000'
+alias grep='grep --color=auto'
+
 
 # Fancy prompting colors
 GREEN="\[\033[0;32m\]"
@@ -36,16 +37,18 @@ function set_virtualenv () {
 
 # Fancy prompting with Git stuffs
 function parse_git_dirty {
-    [[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
+    [[ $(git status --porcelain 2>/dev/null) ]] && echo "*" || echo ""
 }
 
 function parse_git_branch {
-    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/ [\1$(parse_git_dirty)]/"
+    local dirty
+    dirty=$(parse_git_dirty)
+    git branch --no-color 2>/dev/null | sed -n '/^\*/s/^\* \(.*\)/[\1'"$dirty"']/p'
 }
 
 function set_bash_prompt () {
     set_virtualenv
-    PS1="${PYTHON_VIRTUALENV}${debian_chroot:+($debian_chroot)}${WHITE}${USER:0:1}@\h $BLUE\w$MAGENTA\$(parse_git_branch) $BLUE\$$CLEAR "
+    PS1="${debian_chroot:+($debian_chroot)}\$(parse_git_branch)\n${PYTHON_VIRTUALENV}${WHITE}${USER:0:1}@\h ${BLUE}\w${BLUE}\$ ${CLEAR}"
 }
 
 PROMPT_COMMAND=set_bash_prompt
